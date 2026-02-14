@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      text-align:center;
+      background:pink;
+      margin:0;
+      padding:80px 16px;
+    }
+    h1{ margin-bottom: 18px; }
+    input, button{
+      padding:12px 14px;
+      font-size:16px;
+      margin-top:10px;
+      border-radius:10px;
+      border:1px solid #ccc;
+    }
+    button{
+      cursor:pointer;
+      border:none;
+      padding:12px 18px;
+    }
+    #response{
+      margin-top:18px;
+      font-size:18px;
+      font-weight:600;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="question">Will you be my Valentine? 😊</h1>
+
+  <input type="text" id="answer" placeholder="Type Yes or No" />
+  <br />
+  <button onclick="checkAnswer()">Submit</button>
+
+  <p id="response"></p>
+
+  <script>
+    // "main" = Will you be my Valentine? 😊
+    // "sure" = Are you sure? 😢
+    let state = "main";
+
+    function checkAnswer() {
+      const questionEl = document.getElementById("question");
+      const answerEl = document.getElementById("answer");
+      const responseEl = document.getElementById("response");
+
+      const input = answerEl.value.trim().toLowerCase();
+      answerEl.value = "";
+
+      if (input !== "yes" && input !== "no") {
+        responseEl.textContent = "Please type Yes or No.";
+        return;
+      }
+
+      if (state === "main") {
+        questionEl.textContent = "Will you be my Valentine? 😊";
+        if (input === "yes") {
+          responseEl.textContent = "🔥❤️‍🔥 YAY! You made Bona the happiest man on earth ❤️‍🔥🔥";
+        } else {
+          state = "sure";
+          questionEl.textContent = "Are you sure? 😢";
+          responseEl.textContent = "";
+        }
+        return;
+      }
+
+      // state === "sure"
+      questionEl.textContent = "Are you sure? 😢";
+      if (input === "yes") {
+        responseEl.textContent = "";
+      } else {
+        state = "main";
+        questionEl.textContent = "Will you be my Valentine? 😊";
+        responseEl.textContent = "";
+      }
+    }
+
+    // Optional: press Enter to submit
+    document.getElementById("answer").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") checkAnswer();
+    });
+  </script>
+
+</body>
+</html>
